@@ -1,4 +1,4 @@
-# Networking for Kotlin Multiplatform
+# Sentry Setup for Kotlin Multiplatform
 
 [![Build](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/build.yml/badge.svg)](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/build.yml)
 [![Release](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/release.yml/badge.svg)](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/release.yml)
