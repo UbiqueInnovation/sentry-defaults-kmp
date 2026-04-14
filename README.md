@@ -122,6 +122,10 @@ Use `UbiqueSentry.addBreadcrumb()` to add a breadcrumb to the current Sentry sco
 The `breadcrumb` parameter accepts a `Breadcrumb` instance (e.g. created via `Breadcrumb.ui()`, `Breadcrumb.navigation()`, etc.), 
 and the optional `data` parameter allows attaching additional key-value pairs to the breadcrumb.
 
+#### Test Crash
+
+Use `UbiqueSentry.crash()` to trigger a test crash by throwing an Exception.
+
 ---
 
 ## Development & Testing

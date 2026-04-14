@@ -1,1 +1,1 @@
--keep class ch.ubique.libs.sentry.NonFatalException { *; }
+-keep class ch.ubique.libs.sentry.** extends java.lang.Exception { *; }

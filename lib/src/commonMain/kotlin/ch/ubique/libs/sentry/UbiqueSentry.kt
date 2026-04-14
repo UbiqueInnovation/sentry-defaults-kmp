@@ -76,4 +76,11 @@ object UbiqueSentry {
 		}
 	}
 
+	/**
+	 * Enforces a crash for testing purposes by throwing an Exception.
+	 */
+	fun crash() {
+		throw TaskFailedSuccessfullyException()
+	}
+
 }

@@ -82,7 +82,7 @@ fun initialize(
 			// add build information
 			event.setTags(
 				buildMap {
-					buildTimestamp?.let {
+					buildTimestamp.takeIf { it != 0L }?.let {
 						put("build.datetime", Instant.fromEpochMilliseconds(it).toString())
 						put("build.timestamp", it.toString())
 					}
