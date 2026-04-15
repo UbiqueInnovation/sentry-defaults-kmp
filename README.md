@@ -26,24 +26,24 @@ You may find the current version and version history in the [Releases list](http
 
 ### 🤖 Android
 
-Call with `initUbiqueSentry()` in your Application class, or `UbiqueSentry.init()` if elsewhere.
+Call `initUbiqueSentry()` in your Application class' `onCreate()`, or `UbiqueSentry.init()` if elsewhere.
 
-    class MyApplication : Application() {
-        override fun onCreate() {
-            initUbiqueSentry(
-                isProduction = BuildConfig.IS_FLAVOR_PROD,
-                environment = when {
-                    BuildConfig.DEBUG -> "debug"
-                    BuildConfig.IS_FLAVOR_DEV -> "dev"
-                    BuildConfig.IS_FLAVOR_PROD -> "prod"
-                    else -> throw IllegalArgumentException()
-                },
-                buildTimestamp = BuildConfig.BUILD_TIMESTAMP,
-                vcsBranch = BuildConfig.BRANCH,
-                alpakaBuildId = BuildConfig.BUILD_ID,
-            )
-        }
+```kotlin
+class ExampleApplication : Application() {
+    override fun onCreate() {
+        initUbiqueSentry(
+            isProduction = BuildConfig.IS_FLAVOR_PROD,
+            environment = when {
+                BuildConfig.DEBUG -> "debug"
+                else -> BuildConfig.FLAVOR
+            },
+            buildTimestamp = BuildConfig.BUILD_TIMESTAMP,
+            vcsBranch = BuildConfig.BRANCH,
+            alpakaBuildId = BuildConfig.BUILD_ID,
+        )
     }
+}
+```
 
 #### Parameters
 
@@ -65,10 +65,12 @@ To log Compose Navigation breadcrumbs,
 call [`withSentryObservableEffect()`](https://docs.sentry.io/platforms/android/integrations/jetpack-compose/#configure) 
 on your `NavHostController`s:
 
-    val navController = rememberNavController().withSentryObservableEffect(
-        enableNavigationBreadcrumbs = true,
-        enableNavigationTracing = false,
-    )
+```kotlin
+val navController = rememberNavController().withSentryObservableEffect(
+    enableNavigationBreadcrumbs = true,
+    enableNavigationTracing = false,
+)
+```
 
 ### 🍎 iOS
 
