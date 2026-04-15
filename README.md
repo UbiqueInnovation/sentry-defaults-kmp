@@ -1,6 +1,7 @@
 # Sentry Setup for Kotlin Multiplatform
 
 [![Build](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/build.yml/badge.svg)](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/build.yml)
+[![Test](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/test.yml/badge.svg)](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/test.yml)
 [![Release](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/release.yml/badge.svg)](https://github.com/UbiqueInnovation/sentry-defaults-kmp/actions/workflows/release.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/ch.ubique.kmp/sentry.svg?label=Maven%20Central)](https://search.maven.org/artifact/ch.ubique.kmp/sentry)
 

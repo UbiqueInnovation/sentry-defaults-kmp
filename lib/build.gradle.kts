@@ -22,6 +22,8 @@ kotlin {
 				file("consumer-rules.pro")
 			}
 		}
+
+		withHostTest { }
 	}
 
 	val xcf = XCFramework()
@@ -44,6 +46,9 @@ kotlin {
 			implementation(libs.kotlinx.coroutines.core)
 			api(libs.sentry.kmp)
 		}
+		commonTest.dependencies {
+			implementation(kotlin("test"))
+		}
 		androidMain.dependencies {
 			api(libs.sentry.android.fragment)
 			api(libs.sentry.android.navigation)
@@ -54,6 +59,13 @@ kotlin {
 
 	compilerOptions {
 		freeCompilerArgs.add("-Xexpect-actual-classes")
+	}
+}
+
+tasks.withType(Test::class) {
+	testLogging {
+		setEvents(listOf("standardOut", "passed", "skipped", "failed"))
+		exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 	}
 }
 
