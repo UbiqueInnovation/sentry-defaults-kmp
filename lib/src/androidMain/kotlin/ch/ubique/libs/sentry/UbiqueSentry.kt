@@ -74,6 +74,7 @@ fun Application.initUbiqueSentry(
 	configuration: (SentryAndroidOptions) -> Unit = {},
 ) {
 	UbiqueSentry.isEnabled = isEnabled
+
 	SentryAndroid.init(this) { options ->
 		val isDebug = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
 
