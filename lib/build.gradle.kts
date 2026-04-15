@@ -50,6 +50,7 @@ kotlin {
 			implementation(kotlin("test"))
 		}
 		androidMain.dependencies {
+			api(libs.sentry.android)
 			api(libs.sentry.android.fragment)
 			api(libs.sentry.android.navigation)
 		}

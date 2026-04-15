@@ -27,7 +27,7 @@ jobs:
         run: ./gradlew clean :lib:testAndroidHostTest --console=plain
         
       - name: Tests Report
-        uses: EnricoMi/publish-unit-test-result-action/macos@v2
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           check_name: 'Test Results'
           files: lib/build/test-results/**/*.xml
