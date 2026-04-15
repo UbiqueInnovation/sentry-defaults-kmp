@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+
+      - name: Grant permission to execute
+        run: chmod +x gradlew
+
+      - name: Tests
+        run: ./gradlew clean :lib:testAndroidHostTest --console=plain
+        
+      - name: Tests Report
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          check_name: 'Test Results'
+          files: lib/build/test-results/**/*.xml
