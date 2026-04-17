@@ -18,6 +18,7 @@ import kotlin.time.Instant
  * @param isProduction true if this is a production build, i.e. public release.
  * @param environment current environment (e.g. "dev", "int", "prod").
  * @param buildTimestamp build timestamp in milliseconds since epoch.
+ * @param buildNumber current build number.
  * @param vcsBranch current VCS branch name.
  * @param alpakaBuildId current Alpaka build ID.
  * @param dsn optional Sentry DSN, if not provided, it will be read from the application's manifest.
@@ -30,6 +31,7 @@ fun UbiqueSentry.init(
 	isProduction: Boolean,
 	environment: String,
 	buildTimestamp: Long,
+	buildNumber: Long?,
 	vcsBranch: String,
 	alpakaBuildId: String,
 	dsn: String? = null,
@@ -42,6 +44,7 @@ fun UbiqueSentry.init(
 		isProduction = isProduction,
 		environment = environment,
 		buildTimestamp = buildTimestamp,
+		buildNumber = buildNumber,
 		vcsBranch = vcsBranch,
 		alpakaBuildId = alpakaBuildId,
 		dsn = dsn,
@@ -55,6 +58,7 @@ fun UbiqueSentry.init(
  * @param isProduction true if this is a production build, i.e. public release.
  * @param environment current environment (e.g. "debug", "dev", "prod").
  * @param buildTimestamp build timestamp in milliseconds since epoch.
+ * @param buildNumber current build number.
  * @param vcsBranch current VCS branch name.
  * @param alpakaBuildId current Alpaka build ID.
  * @param dsn optional Sentry DSN, if not provided, it will be read from the application's manifest.
@@ -66,6 +70,7 @@ fun Application.initUbiqueSentry(
 	isProduction: Boolean,
 	environment: String,
 	buildTimestamp: Long?,
+	buildNumber: Long?,
 	vcsBranch: String?,
 	alpakaBuildId: String?,
 	dsn: String? = null,
@@ -109,6 +114,9 @@ fun Application.initUbiqueSentry(
 			buildTimestamp?.let {
 				event.setTag("build.datetime", Instant.fromEpochMilliseconds(it).toString())
 				event.setTag("build.timestamp", it.toString())
+			}
+			buildNumber?.let {
+				event.setTag("build.number", it.toString())
 			}
 			alpakaBuildId?.let {
 				event.setTag("alpaka.build_id", it)

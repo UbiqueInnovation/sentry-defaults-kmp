@@ -38,6 +38,7 @@ class ExampleApplication : Application() {
                 else -> BuildConfig.FLAVOR
             },
             buildTimestamp = BuildConfig.BUILD_TIMESTAMP,
+            buildNumber = BuildConfig.BUILD_NUMBER,
             vcsBranch = BuildConfig.BRANCH,
             alpakaBuildId = BuildConfig.BUILD_ID,
         )
@@ -52,6 +53,7 @@ class ExampleApplication : Application() {
 | `isProduction`   | `true` if this is a production build (public release).                                   |
 | `environment`    | Current environment (e.g. `"debug"`, `"dev"`, `"prod"`).                                 |
 | `buildTimestamp` | Build timestamp in milliseconds since epoch.                                             |
+| `buildNumber`    | Current build number (or `null`).                                                        |
 | `vcsBranch`      | Current VCS branch name (or `null`).                                                     |
 | `alpakaBuildId`  | Current Alpaka build ID (or `null`).                                                     |
 | `dsn`            | Optional Sentry DSN. If `null`, it will be read from the application's manifest.         |
