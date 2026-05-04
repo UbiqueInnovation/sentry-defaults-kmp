@@ -17,4 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":lib")
+include(":sentry")
+project(":sentry").projectDir = file("lib")
