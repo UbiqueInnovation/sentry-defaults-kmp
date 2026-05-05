@@ -15,19 +15,23 @@ import kotlin.time.Instant
  * @param vcsBranch current VCS branch name.
  * @param dsn optional Sentry DSN, if not provided, it will be read from the application's manifest.
  */
-fun initialize(
+@OptIn(ExperimentalForeignApi::class)
+fun init(
 	isProduction: Boolean,
 	environment: String,
 	buildTimestamp: Long,
 	vcsBranch: String?,
-	dsn: String? = null,
+	dsn: String?,
 ) {
-	initialize(
+	init(
 		isProduction = isProduction,
 		environment = environment,
 		buildTimestamp = buildTimestamp,
 		vcsBranch = vcsBranch,
 		dsn = dsn,
+		isEnabled = UbiqueSentry.isEnabled,
+		beforeSend = { event -> event },
+		configuration = {},
 	)
 }
 
@@ -42,15 +46,15 @@ fun initialize(
  * @param configuration callback for further customizations to the SentryAndroidOptions.
  */
 @OptIn(ExperimentalForeignApi::class)
-fun initialize(
+fun init(
 	isProduction: Boolean,
 	environment: String,
 	buildTimestamp: Long,
 	vcsBranch: String?,
-	dsn: String? = null,
-	isEnabled: Boolean = UbiqueSentry.isEnabled,
-	beforeSend: (event: SentryEvent) -> SentryEvent? = { event -> event },
-	configuration: (SentryPlatformOptions) -> Unit = {},
+	dsn: String?,
+	isEnabled: Boolean,
+	beforeSend: (event: SentryEvent) -> SentryEvent?,
+	configuration: (SentryPlatformOptions) -> Unit,
 ) {
 	UbiqueSentry.isEnabled = isEnabled
 
