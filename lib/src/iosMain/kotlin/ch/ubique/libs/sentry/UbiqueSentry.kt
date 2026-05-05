@@ -16,14 +16,14 @@ import kotlin.time.Instant
  * @param dsn optional Sentry DSN, if not provided, it will be read from the application's manifest.
  */
 @OptIn(ExperimentalForeignApi::class)
-fun init(
+fun initialize(
 	isProduction: Boolean,
 	environment: String,
 	buildTimestamp: Long,
 	vcsBranch: String?,
 	dsn: String?,
 ) {
-	init(
+	initialize(
 		isProduction = isProduction,
 		environment = environment,
 		buildTimestamp = buildTimestamp,
@@ -46,7 +46,7 @@ fun init(
  * @param configuration callback for further customizations to the SentryAndroidOptions.
  */
 @OptIn(ExperimentalForeignApi::class)
-fun init(
+fun initialize(
 	isProduction: Boolean,
 	environment: String,
 	buildTimestamp: Long,

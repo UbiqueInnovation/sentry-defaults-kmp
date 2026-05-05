@@ -77,12 +77,12 @@ val navController = rememberNavController().withSentryObservableEffect(
 
 ### 🍎 iOS
 
-Call `init()` early in your app's lifecycle (e.g. in your `AppDelegate`):
+Call `initialize()` early in your app's lifecycle (e.g. in your `AppDelegate`):
 
 ```swift
 import UbiqueSentry
 
-UbiqueSentryKt.init(
+UbiqueSentryKt.initialize(
     isProduction: true,
     environment: "prod",
     buildTimestamp: 1698765432000,
