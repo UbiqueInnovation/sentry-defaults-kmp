@@ -48,18 +48,19 @@ class ExampleApplication : Application() {
 
 #### Parameters
 
-| Parameter        | Description                                                                              |
-|------------------|------------------------------------------------------------------------------------------|
-| `isProduction`   | `true` if this is a production build (public release).                                   |
-| `environment`    | Current environment (e.g. `"debug"`, `"dev"`, `"prod"`).                                 |
-| `buildTimestamp` | Build timestamp in milliseconds since epoch.                                             |
-| `buildNumber`    | Current build number (or `null`).                                                        |
-| `vcsBranch`      | Current VCS branch name (or `null`).                                                     |
-| `alpakaBuildId`  | Current Alpaka build ID (or `null`).                                                     |
-| `dsn`            | Optional Sentry DSN. If `null`, it will be read from the application's manifest.         |
-| `isEnabled`      | Whether Sentry should be immediately enabled (defaults to `true`).                       |
-| `beforeSend`     | Callback to modify or drop a `SentryEvent` before it is sent.                            |
-| `configuration`  | Callback for further customizations to the `SentryAndroidOptions`.                       |
+| Parameter                         | Description                                                                                      |
+|-----------------------------------|--------------------------------------------------------------------------------------------------|
+| `isProduction`                    | `true` if this is a production build (public release).                                           |
+| `environment`                     | Current environment (e.g. `"debug"`, `"dev"`, `"prod"`).                                         |
+| `buildTimestamp`                  | Build timestamp in milliseconds since epoch.                                                     |
+| `buildNumber`                     | Current build number (or `null`).                                                                |
+| `vcsBranch`                       | Current VCS branch name (or `null`).                                                             |
+| `alpakaBuildId`                   | Current Alpaka build ID (or `null`).                                                             |
+| `dsn`                             | Optional Sentry DSN. If `null`, it will be read from the application's manifest.                 |
+| `isEnabled`                       | Whether Sentry should be immediately enabled (defaults to `true`).                               |
+| `addFragmentLifecycleIntegration` | Whether to add the FragmentLifecycleIntegration for automatic breadcrumbs (defaults to `false`). |
+| `beforeSend`                      | Callback to modify or drop a `SentryEvent` before it is sent.                                    |
+| `configuration`                   | Callback for further customizations to the `SentryAndroidOptions`.                               |
 
 #### Compose Navigation breadcrumbs
 

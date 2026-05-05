@@ -23,6 +23,7 @@ import kotlin.time.Instant
  * @param alpakaBuildId current Alpaka build ID.
  * @param dsn optional Sentry DSN, if not provided, it will be read from the application's manifest.
  * @param isEnabled if Sentry should be immediately enabled, defaults to true.
+ * @param addFragmentLifecycleIntegration if FragmentLifecycleIntegration should be added, defaults to false.
  * @param beforeSend callback to modify a SentryEvent.
  * @param configuration callback for further customizations to the SentryAndroidOptions.
  */
@@ -36,6 +37,7 @@ fun UbiqueSentry.init(
 	alpakaBuildId: String,
 	dsn: String? = null,
 	isEnabled: Boolean = UbiqueSentry.isEnabled,
+	addFragmentLifecycleIntegration: Boolean = false,
 	beforeSend: (event: SentryEvent, hint: Hint) -> SentryEvent? = { event, _ -> event },
 	configuration: (SentryAndroidOptions) -> Unit = {},
 ) {
@@ -49,6 +51,7 @@ fun UbiqueSentry.init(
 		alpakaBuildId = alpakaBuildId,
 		dsn = dsn,
 		isEnabled = isEnabled,
+		addFragmentLifecycleIntegration = addFragmentLifecycleIntegration,
 		beforeSend = beforeSend,
 		configuration = configuration,
 	)
@@ -63,6 +66,7 @@ fun UbiqueSentry.init(
  * @param alpakaBuildId current Alpaka build ID.
  * @param dsn optional Sentry DSN, if not provided, it will be read from the application's manifest.
  * @param isEnabled if Sentry should be immediately enabled, defaults to true.
+ * @param addFragmentLifecycleIntegration if FragmentLifecycleIntegration should be added, defaults to false.
  * @param beforeSend callback to modify a SentryEvent.
  * @param configuration callback for further customizations to the SentryAndroidOptions.
  */
@@ -75,6 +79,7 @@ fun Application.initUbiqueSentry(
 	alpakaBuildId: String?,
 	dsn: String? = null,
 	isEnabled: Boolean = UbiqueSentry.isEnabled,
+	addFragmentLifecycleIntegration: Boolean = false,
 	beforeSend: (event: SentryEvent, hint: Hint) -> SentryEvent? = { event, _ -> event },
 	configuration: (SentryAndroidOptions) -> Unit = {},
 ) {
@@ -136,19 +141,21 @@ fun Application.initUbiqueSentry(
 			}
 		}
 
-		options.addIntegration(
-			FragmentLifecycleIntegration(
-				this,
-				filterFragmentLifecycleBreadcrumbs = setOf(
-					FragmentLifecycleState.CREATED,
-					FragmentLifecycleState.STARTED,
-					FragmentLifecycleState.RESUMED,
-					FragmentLifecycleState.PAUSED,
-					FragmentLifecycleState.STOPPED,
-				),
-				enableAutoFragmentLifecycleTracing = true,
+		if (addFragmentLifecycleIntegration) {
+			options.addIntegration(
+				FragmentLifecycleIntegration(
+					this,
+					filterFragmentLifecycleBreadcrumbs = setOf(
+						FragmentLifecycleState.CREATED,
+						FragmentLifecycleState.STARTED,
+						FragmentLifecycleState.RESUMED,
+						FragmentLifecycleState.PAUSED,
+						FragmentLifecycleState.STOPPED,
+					),
+					enableAutoFragmentLifecycleTracing = true,
+				)
 			)
-		)
+		}
 
 		configuration(options)
 	}
