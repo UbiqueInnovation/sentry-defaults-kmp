@@ -2,8 +2,8 @@
 agp = "9.1.1"
 kotlin = "2.3.20"
 kotlinx-coroutines-core = "1.10.2"
-sentry-kmp = "0.25.0"
-sentry-android = "8.38.0"
+sentry-kmp = "0.26.0"
+sentry-android = "8.40.0"
 vanniktech-publish = "0.36.0"
 
 [libraries]
