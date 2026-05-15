@@ -75,12 +75,18 @@ fun initialize(
 
 			// remove user ID and device app hash from all events
 			event.user?.userId = null
-			(event.context?.get("app") as MutableMap<*, *>?)?.apply {
-				remove("device_app_hash")
+			// fallback for iOS: ObjC bridge exposes context values as Map, not MutableMap
+			event.context?.get("app")?.let { app ->
+				(app as? MutableMap<Any?, Any?>)?.remove("device_app_hash")
+					?: (event.context as? MutableMap<Any?, Any?>)
+						?.set("app", (app as Map<*, *>).filterKeys { it != "device_app_hash" })
 			}
-			(event.context?.get("device") as MutableMap<*, *>?)?.apply {
-				remove("id")
-				remove("boot_time")
+			event.context?.get("device")?.let { device ->
+				(device as? MutableMap<Any?, Any?>)?.apply {
+					remove("id")
+					remove("boot_time")
+				} ?: (event.context as? MutableMap<Any?, Any?>)
+					?.set("device", (device as Map<*, *>).filterKeys { it !in setOf("id", "boot_time") })
 			}
 
 			// add build information
