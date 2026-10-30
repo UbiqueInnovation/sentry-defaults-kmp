@@ -43,7 +43,7 @@ fun initialize(
  * @param dsn optional Sentry DSN, if not provided, it will be read from the application's manifest.
  * @param isEnabled if Sentry should be immediately enabled, defaults to true.
  * @param beforeSend callback to modify a SentryEvent.
- * @param configuration callback for further customizations to the SentryAndroidOptions.
+ * @param configuration callback for further customizations to the Sentry Cocoa options.
  */
 @OptIn(ExperimentalForeignApi::class)
 fun initialize(
@@ -59,16 +59,16 @@ fun initialize(
 	UbiqueSentry.isEnabled = isEnabled
 
 	Sentry.initWithPlatformOptions { options ->
-		dsn?.let { options.dsn = it }
+		dsn?.let { options.setDsn(it) }
 
-		options.environment = environment
+		options.setEnvironment(environment)
 
-		options.enableAutoSessionTracking = false
+		options.setEnableAutoSessionTracking(false)
 
 		// opt-out from attaching a stacktrace to non-error events
-		options.attachStacktrace = false
+		options.setAttachStacktrace(false)
 
-		options.beforeSend = beforeSend@{ event ->
+		options.setBeforeSend beforeSend@{ event ->
 			if (event == null || !isEnabled) {
 				return@beforeSend null
 			}
@@ -106,22 +106,20 @@ fun initialize(
 		}
 
 		if (isProduction) {
-			options.enableAutoBreadcrumbTracking = false
-			options.maxBreadcrumbs = 1UL
+			options.setEnableAutoBreadcrumbTracking(false)
+			options.setMaxBreadcrumbs(1UL)
 		}
 
 		// disable performance tracing on prod
-		options.tracesSampleRate = if (!isProduction) NSNumber(1.0) else null
+		options.setTracesSampleRate(if (!isProduction) NSNumber(1.0) else null)
 
 		if (isProduction) {
-			options.enableTracing = false
-			options.enableNetworkBreadcrumbs = false
-			options.enableCaptureFailedRequests = false
+			options.setEnableNetworkBreadcrumbs(false)
+			options.setEnableCaptureFailedRequests(false)
 		} else {
-			options.enableTracing = true
-			options.enableNetworkBreadcrumbs = false
-			options.enableCaptureFailedRequests = false  // Track 4xx - 5xx network errors
-			options.failedRequestStatusCodes = listOf(SentryHttpStatusCodeRange(min = 400, max = 599))
+			options.setEnableNetworkBreadcrumbs(false)
+			options.setEnableCaptureFailedRequests(false)  // Track 4xx - 5xx network errors
+			options.setFailedRequestStatusCodes(listOf(SentryHttpStatusCodeRange(min = 400, max = 599)))
 		}
 
 		configuration(options)

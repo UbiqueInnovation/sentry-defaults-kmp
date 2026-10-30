@@ -14,10 +14,32 @@ implementation("ch.ubique.kmp:sentry:1.0.0")
 
 You may find the current version and version history in the [Releases list](https://github.com/UbiqueInnovation/sentry-defaults-kmp/releases).
 
+## Upgrading from 1.0.0 (next release)
+
+The next release upgrades to the native SDK versions used by Sentry KMP 0.29.0:
+
+| Component | Version |
+|-----------|---------|
+| Sentry KMP | 0.29.0 |
+| Sentry Android, Fragment and Navigation | 8.61.0 |
+| Sentry Cocoa | 9.30.2 |
+
+- iOS 15 or later is required. Android's minimum remains API 23; compilation requires API 36.
+- In consuming iOS apps, pin the `Sentry` Swift package from
+  `https://github.com/getsentry/sentry-cocoa` to **9.30.2**. Update this together with
+  the Ubique dependency. Sentry CocoaPods installation is no longer supported by
+  the upgraded KMP SDK.
+- Custom native iOS `configuration` callbacks must use Cocoa 9's generated accessors,
+  for example `options.setTracesSampleRate(...)`. The Kotlin interop package remains
+  `cocoapods.Sentry`; that package name does not imply CocoaPods installation support.
+- Runtime defaults remain unchanged: sessions are disabled, performance tracing is
+  enabled only outside production, identifiers are sanitized, and production
+  breadcrumbs remain restricted.
+
 ## Features
 
 - Auto-installation is off.
-- Disables performance tracing and session tracking.
+- Disables session tracking in all environments and performance tracing in production.
 - Anonymizes user and device.
 - Disables all breadcrumbs except for the most recently viewed Screen.
 - Adds build metadata to crash reports.
