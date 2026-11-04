@@ -31,8 +31,11 @@ kotlin {
 		iosX64(),
 		iosArm64(),
 		iosSimulatorArm64(),
-	).forEach {
-		it.binaries.framework {
+	).forEach { target ->
+		target.binaries.configureEach {
+			freeCompilerArgs += "-Xoverride-konan-properties=minVersion.ios=15.0"
+		}
+		target.binaries.framework {
 			baseName = "UbiqueSentry"
 			isStatic = true
 			xcf.add(this)
