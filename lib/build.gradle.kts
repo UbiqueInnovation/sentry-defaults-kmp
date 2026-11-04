@@ -33,7 +33,7 @@ kotlin {
 		iosSimulatorArm64(),
 	).forEach { target ->
 		target.binaries.configureEach {
-			freeCompilerArgs += "-Xoverride-konan-properties=osVersionMin.${target.konanTarget.name}=15.0"
+			freeCompilerArgs += "-Xoverride-konan-properties=minVersion.ios=15.0"
 		}
 		target.binaries.framework {
 			baseName = "UbiqueSentry"
